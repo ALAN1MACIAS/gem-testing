@@ -1,0 +1,22 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  host: <%= ENV['host_postgres'] %>
+  port: <%= ENV['port_postgres'] %>
+  username: <%= ENV['username_postgres'] %>
+  password: <%= ENV['password_postgres'] %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: gem_testing_development
+
+test:
+  <<: *default
+  database: gem_testing_test
+
+production:
+  <<: *default
+  database: gem_testing_production
+  username: gem_testing
+  password: <%= ENV['GEM_TESTING_DATABASE_PASSWORD'] %>
